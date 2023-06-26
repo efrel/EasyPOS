@@ -4,14 +4,14 @@ namespace Domain.ValueObjects;
 
 public partial record PhoneNumber
 {
-    private const int DefaultLenght = 9;
+    private const int DefaultLength = 9;
     private const string Pattern = @"^(?:-*\d-*){8}$";
 
     private PhoneNumber(string value) => Value = value;
 
     public static PhoneNumber? Create(string value)
     {
-        if (string.IsNullOrEmpty(value) || !PhoneNumberRegex().IsMatch(value) || value.Length != DefaultLenght)
+        if (string.IsNullOrEmpty(value) || !PhoneNumberRegex().IsMatch(value) || value.Length != DefaultLength)
         {
             return null;
         }
@@ -21,6 +21,6 @@ public partial record PhoneNumber
 
     public string Value { get; init; }
 
-    [GeneratedRegex(Pattern)]
-    private static partial Regex PhoneNumberRegex();
+    // [GeneratedRegex(Pattern)]
+    private static Regex PhoneNumberRegex() => new Regex(Pattern);
 }
